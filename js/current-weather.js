@@ -29,7 +29,12 @@ function solarStatus(sunriseTime, sunsetTime) {
 
 function setBackground($el, conditionCode, solarStatus) {
   const weatherType = weatherConditionsCodes[conditionCode]
-  $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}.jpg)`
+  const size = window.matchMedia('(-webkit-min-device-pixel-ratio: 2)').matches ? '@2x' : ''
+ /*  let size = ''
+  if (window.matchMedia('(-webkit-min-device-pixel-ratio: 2)').matches) {
+    size = '@2x'
+  } */
+  $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`
 }
 
 function configCurrentWeather (weather) {
@@ -52,14 +57,13 @@ function configCurrentWeather (weather) {
   //background
   const sunriseTime = new Date(weather.sys.sunrise * 1000)
   const sunsetTime = new Date(weather.sys.sunset * 1000)
-  debugger
   const $app = document.querySelector('#app')
   const conditionCode = String(weather.weather[0].id).charAt(0)
   setBackground($app, conditionCode, solarStatus(sunriseTime, sunsetTime))
 }
 
 export default function currentWeather () {
+}
   // GEO // API -weather / Config
   configCurrentWeather(weather) 
   console.log(weather)
-}

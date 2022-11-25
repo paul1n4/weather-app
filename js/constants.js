@@ -1,6 +1,4 @@
-import { WEATHER_API_KEY } from './apikey.js'
-
-export const API_KEY = WEATHER_API_KEY
+export const API_KEY = '7a2d09359524e6e6a022fca20853570e'
 
 export const BASE_API = 'https://api.openweathermap.org/data/2.5/'
 

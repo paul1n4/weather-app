@@ -11,3 +11,16 @@ export function formatDate(date, options = defaultDateOptions) {
 export function formatTemp(value) {
   return `${Math.floor(value)}˚`
 }
+
+export function formatWeekList(rawData) {
+  let dayList = []
+  const weeklist = []
+  rawData.forEach((item, index) => {
+    dayList.push(item)
+    if ((index + 1) % 8 === 0) {
+      weeklist.push(dayList)
+      dayList = []
+    }
+  })
+  return weeklist
+}

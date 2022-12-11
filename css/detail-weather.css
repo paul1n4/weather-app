@@ -1,0 +1,21 @@
+.detailWeather{
+  color: white;
+  padding-inline: 1rem;
+  padding-block-end: 1rem;
+}
+
+.detailWeather-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+p span {
+  font: var(--body1-bold);
+}

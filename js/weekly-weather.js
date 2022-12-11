@@ -3,6 +3,7 @@ import { getLatLon } from './geolocation.js'
 import { formatWeekList } from './utils/format-data.js'
 import { createDOM } from './utils/dom.js'
 import { createPeriodTime } from './period-time.js'
+import { createDetailWeather } from './detail-weather.js'
 import draggable from './draggable.js'
 
 function tabPanelTemplate(id) {
@@ -18,23 +19,49 @@ function tabPanelTemplate(id) {
 }
 
 function createTabPanel(id) {
-  const $panel = createDOM(tabPanelTemplate(id))
+  const $GroupPanel = createDOM(tabPanelTemplate(id))
   if (id > 0) {
-    $panel.hidden = true
+    $GroupPanel.hidden = true
   }
-  return $panel
+  return $GroupPanel
 }
+
+function firstDetailWeather(timeWeather, id) {
+  const $detail = createDetailWeather(timeWeather, id)
+  if(id > 0){
+    $detail.hidden = true
+  }
+  return $detail
+}
+
 
 function configWeeklyWeather(weeklist) {
   const $container = document.querySelector('.tabs')
+  const $detailContainer = document.querySelector('.detailWeather')
+
   weeklist.forEach((day, index) => {
-    const $panel = createTabPanel(index)
-    $container.append($panel)
-    day.forEach((weather, indexWeather) => {
-      $panel.querySelector('.dayWeather-list').append(createPeriodTime(weather))
+    const $GroupPanel = createTabPanel(index)
+    $container.append($GroupPanel)
+
+    
+    day.forEach((timeWeather, indexWeather) => {
+      $GroupPanel.querySelector('.dayWeather-list').append(createPeriodTime(timeWeather, indexWeather))
+      const $detail = firstDetailWeather(timeWeather, indexWeather)
+      $detailContainer.append($detail)
     })
   })
 }
+
+// const $tabContainer = document.querySelector('.tabPanel')
+const $dayWeatherItem = document.querySelectorAll('.dayWeather-item')
+
+$dayWeatherItem.forEach(($dayTime, index) => {
+  $dayTime.addEventListener('click', handleSelectTimeClick)
+})
+
+function handleSelectTimeClick(event) {
+}
+
 
 export default async function weeklyWeather() {
   const $container = document.querySelector('.weeklyWeather')
@@ -43,6 +70,7 @@ export default async function weeklyWeather() {
   const { isError: weeklyWeatherError, data: weather } = await getWeeklyWeather(lat, lon)
   if (weeklyWeatherError) return console.log('oh! ha ocurrido un error trayendo el pronóstico del clima');
   const weeklist = formatWeekList(weather.list)
+  // const dayTimeList = weeklist
   configWeeklyWeather(weeklist)
   draggable($container)
 }

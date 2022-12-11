@@ -3,10 +3,10 @@ import { formatDate, formatTemp } from './utils/format-data.js'
 
 export function periodTimeTemplate({ temp, date, icon, description, id }) {
   return `
-    <li class="dayWeather-item" id="dayWeatherItem-${id}>
-      <span class="dayWeather-time">${date}</span>
-      <img class="dayWeather-icon" height="48" width="48" src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" rain="">
-      <span class="dayWeather-temp">${temp}</span>
+    <li class="dayWeather-item" id="dayTime-${id}">
+      <span class="dayWeather-time" id="dayTime-${id}">${date}</span>
+      <img class="dayWeather-icon" id="dayTime-${id}" height="48" width="48" src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" rain="">
+      <span class="dayWeather-temp" id="dayTime-${id}">${temp}</span>
     </li>
   `
 }

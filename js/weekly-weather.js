@@ -5,6 +5,7 @@ import { createDOM } from './utils/dom.js'
 import { createPeriodTime } from './period-time.js'
 import { createDetailWeather } from './detail-weather.js'
 import draggable from './draggable.js'
+import { hourTime } from './hour-time.js'
 
 function tabPanelTemplate(id) {
   return `
@@ -52,17 +53,6 @@ function configWeeklyWeather(weeklist) {
   })
 }
 
-// const $tabContainer = document.querySelector('.tabPanel')
-const $dayWeatherItem = document.querySelectorAll('.dayWeather-item')
-
-$dayWeatherItem.forEach(($dayTime, index) => {
-  $dayTime.addEventListener('click', handleSelectTimeClick)
-})
-
-function handleSelectTimeClick(event) {
-}
-
-
 export default async function weeklyWeather() {
   const $container = document.querySelector('.weeklyWeather')
   const {lat, lon, isError } = await getLatLon()
@@ -70,7 +60,7 @@ export default async function weeklyWeather() {
   const { isError: weeklyWeatherError, data: weather } = await getWeeklyWeather(lat, lon)
   if (weeklyWeatherError) return console.log('oh! ha ocurrido un error trayendo el pronóstico del clima');
   const weeklist = formatWeekList(weather.list)
-  // const dayTimeList = weeklist
   configWeeklyWeather(weeklist)
   draggable($container)
+  hourTime() 
 }

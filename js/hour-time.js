@@ -1,7 +1,7 @@
 
 export function hourTime() {
   const $dayWeatherItem = document.querySelectorAll('.dayWeather-item')
-  console.log($dayWeatherItem);
+  // console.log($dayWeatherItem);
 
   $dayWeatherItem.forEach(($dayTime, index) => {
     $dayTime.addEventListener('click', handleSelectTimeClick)

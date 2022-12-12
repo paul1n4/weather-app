@@ -3,7 +3,7 @@ import { formatTemp } from './utils/format-data.js'
 
 export function detailWeatherTemplate({ maxTemp, minTemp, wind, humidity, id }) {
   return `
-    <div class="detailWeather-container" aria-labelledby="dayTime-${id}" hidden>
+    <div class="detailWeather-container" aria-labelledby="dayTime-${id}">
       <div class="detailWeather-list">
         <p>
           Max:
